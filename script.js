@@ -2,17 +2,19 @@ const newsletterForm = document.querySelector(".newsletter-form");
 
 const submitEmail = async (email) => {
   try {
-    const response = await fetch("http://localhost:8080/email", {
+    const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        access_key: "fddea972-17b9-42e7-b347-cc7eda7fedbc",
         email,
+        subject: "New email subscription"
       }),
     });
     const data = await response.json();
-    if (response.status === 201 || response.status === 200) {
+    if (response.status === 200 && data.success) {
       return { success: true, error: null };
     }
     throw new Error(
